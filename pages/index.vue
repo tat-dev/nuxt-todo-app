@@ -7,8 +7,6 @@
 import { Todo } from '~/interfaces/todo';
 
 const statusObj = commonConstants().STATUS_CD
-
-// const todos = ref<Todo[]>()
 const { todos, addTodo } = useFirestore()
 
 onMounted(() => {
