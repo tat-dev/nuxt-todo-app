@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       FIREBASE_APP_ID: process.env.FIREBASE_APP_ID || "",
     },
   },
-  css: ["vuetify/lib/styles/main.sass"],
+  css: ["vuetify/lib/styles/main.sass", "~/assets/css/main.scss"],
   build: {
     transpile: ["vuetify"],
   },
