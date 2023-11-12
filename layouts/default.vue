@@ -3,7 +3,9 @@
     <!-- TODO: ヘッダー部コンポーネント化 -->
     <v-app-bar color="primary" density="comfortable" elevation="1">
       <v-app-bar-nav-icon color="background" @click="drawer = !drawer" />
-      <v-app-bar-title>TODO APP</v-app-bar-title>
+      <v-app-bar-title>
+        <v-btn href="/" variant="text" color="text-background">TODOアプリ</v-btn>
+      </v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn>a</v-btn>
       <login-button />

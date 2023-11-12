@@ -1,5 +1,5 @@
 <template>
-  <h1>こんさん</h1>
+  <h1>TODO一覧</h1>
   <todo-form :is-edit="false" @add="onAdd" />
   <todo-card v-for="todo in todos" :todo="todo" @done="onDone()" @update="onUpdate()" @delete="onDelete" />
 </template>
