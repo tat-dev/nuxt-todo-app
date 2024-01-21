@@ -1,6 +1,6 @@
 <template>
-  <v-snackbar v-model="isSnackbar" :timeout="2000">{{ "TEST" }}</v-snackbar>
+  <v-snackbar v-model="state" :timeout="2000">{{ message }}</v-snackbar>
 </template>
 <script setup lang="ts">
-const isSnackbar = ref(true)
+const { state, message } = useSnackbar()
 </script>

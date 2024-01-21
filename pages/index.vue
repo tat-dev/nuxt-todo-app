@@ -8,6 +8,7 @@ import { Todo } from '~/interfaces/todo';
 
 const statusObj = commonConstants().STATUS_CD
 const { todos, addTodo } = useFirestore()
+const snackbar = useSnackbar()
 
 onMounted(() => {
 
@@ -18,7 +19,7 @@ watch(todos, () => console.log('watch'))
 /** TODO追加 */
 function onAdd(value: string) {
   const todo: Todo = { name: value, statusCd: statusObj.NOT_YET }
-  addTodo(todo).then(() => console.log('aaa'))
+  addTodo(todo).then(() => snackbar.add('TODOを登録しました'))
 }
 
 /** TODO実行 */

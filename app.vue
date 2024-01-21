@@ -2,6 +2,7 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <CustomSnackbar />
 </template>
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged, signInAnonymously } from '@firebase/auth';

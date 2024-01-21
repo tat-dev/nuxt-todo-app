@@ -25,14 +25,12 @@
     <v-overlay class="align-center justify-center" v-model="isLoading" close-on-back="false">
       <v-progress-circular color="primary" indeterminate size="50"></v-progress-circular>
     </v-overlay>
-    <custom-snackbar />
   </v-app>
 </template>
 <script setup lang="ts">
 const sideMenus = [
   { icon: 'mdi-view-dashboard', title: 'TODO', value: 'home', path: '/' },
   { icon: 'mdi-archive', title: 'アーカイブ', value: 'archive', path: '/archive' },
-  { icon: 'mdi-cog', title: '設定', value: 'setting', path: '/' },
   
 ]
 /** ローディングオーバーレイ表示用 */
