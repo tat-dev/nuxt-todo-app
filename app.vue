@@ -7,7 +7,8 @@
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged, signInAnonymously } from '@firebase/auth';
 import { collection, getFirestore, doc, getDoc } from '@firebase/firestore';
-const { token } = useAuth()
+
+const { setUser } = useUser()
 
 onMounted(() => {
   const auth = getAuth()
@@ -25,7 +26,7 @@ onMounted(() => {
       const db = getFirestore(auth.app)
       const docRef = doc(db, 'todo/1')
       // getDoc(docRef).then(res => console.log(res))
-      user.getIdToken().then(idToken => token.value = idToken)
+      setUser(user)
     }
   })
 })

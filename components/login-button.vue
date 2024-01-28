@@ -1,5 +1,5 @@
 <template>
-  <template v-if="!token">
+  <template v-if="!user">
     <v-btn color="background" @click="isDialog = true">
       <v-icon start color="background" icon="mdi-login" />
       ログイン
@@ -30,19 +30,23 @@
 </template>
 <script setup lang="ts">
 import { useAuth } from '~/composables/useAuth';
-const { token, signIn, signOut } = useAuth()
+const { user } = useUser()
+const { signIn, signOut } = useAuth()
 const { required, email } = customValidator()
 const isDialog = ref(false)
 const loginData = ref({ form: false, email: '', password: '' })
 
-// ダイアログ開閉時
-watch(isDialog, (value) => {
-  loginData.value = { form: false, email: '', password: '' }
+// ダイアログ・ユーザー検知
+watch([isDialog, user], (value) => {
+  // ダイアログ表示時に初期化
+  if (isDialog) loginData.value = { form: false, email: '', password: '' }
+  // ユーザー情報がある場合、ダイアログ閉じる
+  if (user && user.value) isDialog.value = false
 })
+
 /** ログインボタン押下時 */
 const onLogin = () => {
   signIn(loginData.value.email, loginData.value.password)
-  isDialog.value = false
 }
 
 /** ログアウトボタン押下時 */

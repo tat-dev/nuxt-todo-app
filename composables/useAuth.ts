@@ -1,20 +1,21 @@
-import { getAuth, signInWithEmailAndPassword, signOut as fbSignOut, setPersistence, browserSessionPersistence, inMemoryPersistence } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut as fbSignOut, setPersistence, browserSessionPersistence } from 'firebase/auth'
+
 export function useAuth() {
-  /** firebase token */
-  const token = useState<string>('token', () => '')
+  const { setUser } = useUser()
+  const { add } = useSnackbar()
+  const { isLoading } = utilFunc()
+  const auth = getAuth()
   /** ログイン */
   const signIn = (email: string, password: string) => {
-    const auth = getAuth()
-    const isLoading = utilFunc().isLoading
     isLoading.value = true
-    setPersistence(auth, browserSessionPersistence)
-    // セッションストレージに保持。
     // TODO: セッションの状態を検知し、自動でログイン状態にする処理必要
     setPersistence(auth, browserSessionPersistence).then(() => {
-      return signInWithEmailAndPassword(auth, email, password).then(async userCredential => {
-        const user = userCredential.user
-        token.value = await userCredential.user.getIdToken()
-      }).catch(error => console.log('signInWithPasword error')).finally(() => isLoading.value = false)
+      signInWithEmailAndPassword(auth, email, password).then(async userCredential => {
+        setUser(userCredential.user)
+      }).catch(error => {
+        console.log(error)
+        add('メールアドレスもしくはパスワードが間違っています', 'red')
+      }).finally(() => isLoading.value = false)
     })
   }
 
@@ -22,9 +23,9 @@ export function useAuth() {
   const signOut = () => {
     const auth = getAuth()
     return fbSignOut(auth).then(() => {
-      token.value = ''
+      setUser(null)
     })
   }
 
-  return { token, signIn, signOut }
+  return { signIn, signOut }
 }
