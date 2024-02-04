@@ -16,7 +16,7 @@ export function useFirestore() {
   const updateTodo = (id: string, body: Todo) => updateDoc(doc(db, 'todo', id), {...body})
   const doneTodo = (id: string) => updateDoc(doc(db, 'todo', id), { statusCd: commonConstants().STATUS_CD.COMPLETE })
   /** TODO削除 */
-  const deleteTodo = (todoRef: any) => deleteDoc(todoRef)
+  const deleteTodo = (id: string) => deleteDoc(doc(db, 'todo', id))
   /** TODO一覧リアルタイム更新 */
   const updateTodos = onSnapshot(todosQuery, (snapshot) => {
     todos.value = snapshot.docs.map(res => ({ ...res.data(), id: res.id } as Todo))

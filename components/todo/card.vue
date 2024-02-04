@@ -13,9 +13,9 @@
     </template>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn icon><v-icon icon="mdi-check" color="green-darken-2" variant="text" @click="$emit('done')" /></v-btn>
+      <v-btn icon><v-icon icon="mdi-check" color="green-darken-2" variant="text" @click="$emit('done', todo.id!)" /></v-btn>
       <v-btn icon><v-icon icon="mdi-pencil" variant="text" @click="isEdit = !isEdit"/></v-btn>
-      <v-btn icon><v-icon icon="mdi-delete" variant="text" @click="$emit('delete')" /></v-btn>
+      <v-btn icon><v-icon icon="mdi-delete" variant="text" @click="$emit('delete', todo.id!)" /></v-btn>
     </v-card-actions>
   </v-card>
   <todo-detail-dialog v-model="isOpenDialog"></todo-detail-dialog>
@@ -25,9 +25,9 @@ import { Todo } from '~/interfaces/todo';
 
 const props = defineProps<{ todo: Todo }>()
 const emits = defineEmits<{
-  (e: 'done', value: Todo): void
+  (e: 'done', id: string): void
   (e: 'update', value: any): void
-  (e: 'delete', value: any): void
+  (e: 'delete', id: string): void
 }>()
 /** 編集判定 */
 const isEdit = ref(false)

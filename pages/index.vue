@@ -1,13 +1,13 @@
 <template>
   <h1>TODO一覧</h1>
   <todo-form :is-edit="false" @add="onAdd" />
-  <todo-card v-for="todo in todos" :todo="todo" @done="onDone()" @update="onUpdate()" @delete="onDelete" />
+  <todo-card v-for="todo in todos" :todo="todo" @done="onDone" @update="onUpdate()" @delete="onDelete" />
 </template>
 <script setup lang="ts">
 import { Todo } from '~/interfaces/todo';
 
 const statusObj = commonConstants().STATUS_CD
-const { todos, addTodo } = useFirestore()
+const { todos, addTodo, doneTodo, deleteTodo } = useFirestore()
 const snackbar = useSnackbar()
 
 onMounted(() => {
@@ -23,8 +23,8 @@ function onAdd(value: string) {
 }
 
 /** TODO実行 */
-function onDone() {
-  console.log('done')
+function onDone(id: string) {
+  doneTodo(id).then(() => snackbar.add('TODOを完了しました'))
 }
 
 /** TODO編集 */
@@ -33,8 +33,8 @@ function onUpdate() {
 }
 
 /** TODO削除 */
-function onDelete() {
-  console.log('delete')
+function onDelete(id: string) {
+  deleteTodo(id).then(() => snackbar.add('TODOを削除しました'))
 }
 
 </script>
